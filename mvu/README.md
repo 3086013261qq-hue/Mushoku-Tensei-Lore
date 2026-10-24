@@ -36,16 +36,20 @@ MVU只读每回合 `<causality>...</causality>` 中的因果、纠正、生死�
 
 `帝皇娘因果宣言 + 《青衣》宿命底色 + End Of Days末段帝皇合唱/低频`
 
-运行时目标资源：
+正式运行时资源：
 
-`media/opening/imperial-causality-declaration-v2.ogg`
+`media/opening/imperial-causality-declaration-v2.mp3`
+
+CDN：
+
+`https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/opening/imperial-causality-declaration-v2.mp3`
 
 资源清单：`media/opening/opening-media-manifest.v0.1.json`。
 
 - 总时长：158.0s。
 - 帝皇娘语音：0~140.042s。
 - 纯音乐尾奏：140.042~158.0s。
-- 正式运行时采用轻量 Opus OGG；MP3/WAV只作为母带保存，不塞进卡体。
+- 正式运行时直接采用用户上传的完整320kbps MP3；卡体只保存远程URL，不内嵌音频。
 
 ### 首次载入
 
