@@ -1,0 +1,45 @@
+name: Extract Empress Assets
+
+on:
+  push:
+    paths:
+      - '.github/workflows/extract-empress-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Extract formal empress WebP assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive='media/empress/帝皇娘_MVU正式视觉素材包_v1.zip'
+          test -f "$archive"
+          mkdir -p media/empress
+          unzip -j -o "$archive" 'EMP-*.webp' -d media/empress
+          count=$(find media/empress -maxdepth 1 -type f -name 'EMP-*.webp' | wc -l)
+          echo "Extracted $count WebP assets"
+          test "$count" -eq 9
+
+      - name: Commit extracted assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add media/empress/EMP-*.webp
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'media: extract formal empress visual assets'
+          git push origin HEAD:main
