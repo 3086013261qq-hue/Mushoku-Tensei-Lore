@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>百死图鉴 · Death Codex v0.6</title>
+<style>
+:root{
+  --bg:#0b0a0d;--panel:#131116;--panel2:#19161b;--gold:#cdaa63;--gold2:#efd58b;
+  --text:#e8dcc3;--muted:#9c9287;--dim:#5f5b58;--seal:#6f2f35;
+  --magic:#9a7ac0;--battle:#b65a53;--travel:#6b907d;--daily:#a18d70;
+  --politics:#8f718f;--imperial:#c7a35d;--causal:#b14f5d;--absurd:#7f8794;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 50% 0,#17131a 0,#0b0a0d 42%,#070709 100%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:22px 12px 60px}
+.wrap{max-width:440px;margin:auto}
+.codex{background:linear-gradient(180deg,rgba(25,22,27,.98),rgba(11,10,13,.98));border:1px solid rgba(205,170,99,.34);border-radius:18px;box-shadow:0 14px 50px #0008,inset 0 0 40px #0004;overflow:hidden}
+.head{padding:16px 16px 12px;border-bottom:1px solid rgba(205,170,99,.16)}
+.kicker{font-size:10px;letter-spacing:.22em;color:var(--gold);opacity:.9}
+.hrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:5px}
+h1{font-size:22px;margin:0;font-weight:760;letter-spacing:.05em}
+.count{font-size:20px;color:var(--gold2);font-variant-numeric:tabular-nums}
+.motto{font-size:11px;color:var(--muted);margin-top:7px}
+.progress{height:2px;background:#28242b;margin-top:12px;position:relative;overflow:hidden;border-radius:9px}
+.progress span{display:block;height:100%;width:8%;background:linear-gradient(90deg,#8b6f3c,var(--gold2));box-shadow:0 0 8px #cdaa6370}
+.tabs{display:flex;gap:7px;overflow:auto;padding:11px 12px 9px;scrollbar-width:none;border-bottom:1px solid rgba(205,170,99,.12)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1px solid #302b34;background:#111014;color:#918a80;padding:8px 10px;border-radius:5px 5px 9px 9px;font-size:12px;cursor:pointer;position:relative}
+.tab.active{color:var(--text);border-color:var(--gold);box-shadow:inset 0 -2px 0 var(--gold)}
+.tab[data-c="因果"].active{border-color:var(--causal);box-shadow:inset 0 -2px 0 var(--gold)}
+.content{padding:13px;max-height:56vh;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--gold) #151217}
+.summary-grid{display:grid;grid-template-columns:1fr;gap:9px}
+.summary{background:linear-gradient(180deg,#171419,#100f12);border:1px solid #2c2830;border-left:2px solid var(--cat);border-radius:10px;padding:12px;cursor:pointer;transition:.18s}
+.summary:hover{border-color:#514654}
+.sumtop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.sumname{font-weight:700}.sumcount{font-size:12px;color:var(--gold2)}
+.sumdesc{font-size:11px;color:var(--muted);margin-top:5px}.recent{font-size:10px;color:#81786f;margin-top:6px}
+.category-title{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}.category-title strong{font-size:15px}.category-title small{color:var(--muted)}
+.list{display:grid;grid-template-columns:1fr;gap:8px}
+.item{min-height:62px;border:1px solid #29262d;background:linear-gradient(180deg,#151318,#100f12);border-radius:10px;padding:10px 11px;position:relative;overflow:hidden}
+.item .no{font-size:9px;letter-spacing:.16em;color:#716a64}.item .name{font-weight:720;margin-top:4px}.item .catline{font-size:10px;color:var(--muted);margin-top:5px}.item.unknown .name{color:var(--dim);letter-spacing:.08em}.item.known{border-left:2px solid var(--cat)}
+.seal{position:absolute;right:9px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--seal);border:1px solid var(--cat);box-shadow:0 0 0 2px #120e11}
+.item.latest{border-color:var(--gold);box-shadow:0 0 0 1px #cdaa632c,0 0 16px #cdaa6315}
+.item.latest:before{content:"";position:absolute;left:9px;right:9px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.badge{display:inline-block;font-size:8px;letter-spacing:.12em;border:1px solid #6f5935;color:var(--gold2);padding:2px 5px;border-radius:20px;margin-left:6px;vertical-align:2px}
+.badge.pending{border-color:#705d63;color:#c6adb4}.badge.settled{border-color:#4c514a;color:#a9b0a6}
+.footer{padding:10px 13px 14px;border-top:1px solid rgba(205,170,99,.12);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:10px}
+.btn{background:transparent;border:1px solid #3a333d;color:var(--text);border-radius:8px;padding:7px 10px;cursor:pointer}
+.note{margin-top:12px;font-size:11px;line-height:1.65;color:#a79d90;padding:0 4px}
+@media(min-width:390px){.summary-grid{grid-template-columns:1fr 1fr}.list{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="codex">
+    <div class="head">
+      <div class="kicker">THE HUNDRED DEATHS</div>
+      <div class="hrow"><h1>百死图鉴</h1><div class="count"><span id="seenCount">08</span> / 100</div></div>
+      <div class="motto">记录死亡，不等于偿还因果。</div>
+      <div class="progress"><span id="progressBar"></span></div>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div class="content" id="content"></div>
+    <div class="footer"><span id="footerText">全部模式仅显示八类目录</span><button class="btn" id="cycle">模拟下一状态</button></div>
+  </div>
+  <div class="note">交互演示：点八类书签或目录卡切换分类；“模拟下一状态”会在 NEW → PENDING → SETTLED 之间切换，展示同一条记录的状态变化。</div>
+</div>
+<script>
+const cats=[
+ {k:'全部',i:'▤',c:'#cdaa63',n:100,d:'八类死亡索引。'},
+ {k:'魔法',i:'✦',c:'#9a7ac0',n:17,d:'术式与魔力反噬。'},
+ {k:'战斗',i:'⚔',c:'#b65a53',n:20,d:'刀剑、魔物与强者。'},
+ {k:'旅行',i:'⌖',c:'#6b907d',n:20,d:'旅途、环境与事故。'},
+ {k:'日常',i:'⌂',c:'#a18d70',n:8,d:'最普通的世界风险。'},
+ {k:'权谋',i:'♜',c:'#8f718f',n:11,d:'王宫、暗杀与政治。'},
+ {k:'帝皇',i:'♛',c:'#c7a35d',n:9,d:'超规格存在介入。'},
+ {k:'因果',i:'∞',c:'#b14f5d',n:6,d:'世界线与旧债回收。'},
+ {k:'荒诞',i:'☠',c:'#7f8794',n:9,d:'世界偶尔也会冷笑。'}
+];
+const found={魔法:['魔力反噬','魔法失控'],战斗:['决斗败北'],旅行:['迷宫陷阱'],日常:['过劳倒下'],权谋:['情报误判'],帝皇:['人神翻车'],因果:['主角光环断电'],荒诞:[]};
+const ids={魔法:[1,10,23,24,25,26],战斗:[6,19,31,44,45,46],旅行:[3,4,7,13,14,15],日常:[16,32,33,58,81,89],权谋:[17,18,20,52,69,72],帝皇:[2,8,9,49,50,51],因果:[12,96,97,98,99,100],荒诞:[11,53,59,67,83,84]};
+let current='全部';let state=0;
+function renderTabs(){tabs.innerHTML=cats.map(x=>`<button class="tab ${x.k===current?'active':''}" data-c="${x.k}" onclick="selectCat('${x.k}')">${x.i}${x.k}</button>`).join('')}
+function selectCat(k){current=k;renderTabs();render()}
+function render(){
+ if(current==='全部'){
+  content.innerHTML=`<div class="summary-grid">${cats.slice(1).map(x=>{let c=(found[x.k]||[]).length;let recent=c?found[x.k][c-1]:'尚无记录';return `<div class="summary" style="--cat:${x.c}" onclick="selectCat('${x.k}')"><div class="sumtop"><div class="sumname">${x.i} ${x.k}</div><div class="sumcount">${String(c).padStart(2,'0')} / ${String(x.n).padStart(2,'0')}</div></div><div class="sumdesc">${x.d}</div><div class="recent">最近：${recent}</div></div>`}).join('')}</div>`;
+  footerText.textContent='全部模式仅显示八类目录';return;
+ }
+ const cat=cats.find(x=>x.k===current);let known=found[current]||[];let nums=ids[current]||[];
+ let rows=[];
+ nums.forEach((id,idx)=>{
+   const k=known[idx];
+   if(k){let latest=current==='因果'&&k==='主角光环断电';let badge='';if(latest){badge=state===0?'<span class="badge">NEW</span>':state===1?'<span class="badge pending">PENDING</span>':'<span class="badge settled">SETTLED</span>'}
+    rows.push(`<div class="item known ${latest?'latest':''}" style="--cat:${cat.c}"><div class="no">NO. ${String(id).padStart(3,'0')}</div><div class="name">${k}${badge}</div><div class="catline">${cat.i} ${cat.k}</div><span class="seal"></span></div>`)
+   }else rows.push(`<div class="item unknown"><div class="no">NO. ${String(id).padStart(3,'0')}</div><div class="name">未记录</div><div class="catline">${cat.i} ${cat.k}</div></div>`)
+ });
+ content.innerHTML=`<div class="category-title"><strong>${cat.i} ${cat.k}</strong><small>${String(known.length).padStart(2,'0')} / ${String(cat.n).padStart(2,'0')}</small></div><div class="list">${rows.join('')}</div>`;
+ footerText.textContent=current==='因果'?'最新写入：主角光环断电':'未发现条目不泄露名称';
+}
+cycle.onclick=()=>{state=(state+1)%3;current='因果';renderTabs();render()};
+renderTabs();render();
+</script>
+</body>
+</html>
