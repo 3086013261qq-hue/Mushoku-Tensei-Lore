@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>帝皇娘装饰层 v0.7</title>
+<style>
+:root{--bg:#0b0a0d;--panel:#151217;--panel2:#1a161c;--gold:#cdaa63;--gold2:#efd58b;--text:#e8dcc3;--muted:#9f9589;--crimson:#9d4147;--cyan:#6f9dac}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#1b151d 0,#0b0a0d 45%,#070709 100%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:18px 12px 60px}.wrap{max-width:440px;margin:auto}
+.card{background:linear-gradient(180deg,rgba(24,20,27,.98),rgba(10,9,12,.98));border:1px solid #3b303a;border-radius:18px;box-shadow:0 18px 60px #0008;overflow:hidden;position:relative}.top{display:flex;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid #2d252d}.seal{width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;position:relative;flex:none;box-shadow:0 0 12px #cdaa6314}.seal:before,.seal:after{content:"";position:absolute;inset:5px;border:1px solid rgba(205,170,99,.42);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)}.seal:after{inset:9px;border-radius:50%;clip-path:none}.ray{position:absolute;left:50%;top:50%;width:1px;height:24px;background:linear-gradient(var(--gold2),transparent);transform-origin:0 0;opacity:.35}.eye{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:3px;height:3px;border-radius:50%;background:var(--gold2);box-shadow:0 0 6px var(--gold2)}.title{flex:1}.title b{display:block;font-size:14px;letter-spacing:.06em}.title small{display:block;font-size:9px;color:var(--gold);letter-spacing:.18em;margin-top:2px}.tags{font-size:8px;color:#857b71;border:1px solid #302830;border-radius:999px;padding:4px 7px}
+.quote{display:flex;gap:10px;align-items:center;padding:11px 13px;border-bottom:1px solid #2a232a;background:linear-gradient(90deg,#100e12,#17131a)}.portrait{width:36px;height:36px;border-radius:50%;position:relative;background:radial-gradient(circle at 55% 45%,#4d332e 0 21%,#201519 22% 45%,#0a080a 46% 100%);border:1px solid #6e5732;box-shadow:inset 0 0 0 3px #0b090c,0 0 12px #cdaa6310;overflow:hidden}.portrait:before{content:"";position:absolute;width:22px;height:28px;left:7px;top:4px;border-left:2px solid #090709;border-right:4px solid #090709;border-radius:48%;transform:rotate(-4deg)}.portrait:after{content:"";position:absolute;width:4px;height:2px;border-radius:50%;background:var(--gold2);right:9px;top:15px;box-shadow:0 0 6px #efd58b}.halo{position:absolute;inset:2px;border:1px solid rgba(239,213,139,.52);border-radius:50%;clip-path:inset(0 0 45% 0)}.qtext{flex:1;min-width:0}.qtext div{font-size:12px;line-height:1.55}.qtext small{color:#8f877d;font-size:8px;letter-spacing:.1em}.replay{font-size:9px;color:var(--gold);border:1px solid #4c3c25;border-radius:999px;padding:5px 7px}
+.section{padding:13px}.label{font-size:9px;color:#8f877d;letter-spacing:.15em;margin-bottom:8px}.bars{display:grid;gap:9px}.bar h3{font-size:12px;margin:0 0 5px;display:flex;justify-content:space-between}.cells{display:grid;grid-template-columns:repeat(20,1fr);gap:2px}.cell{height:10px;border:1px solid #2b272d;background:#111014;border-radius:2px}.cell.k{background:linear-gradient(#5e242a,#351519);border-color:#6c2b31}.cell.c{background:linear-gradient(#31525e,#182d34);border-color:#426b78}.cell.gold{box-shadow:0 0 6px #cdaa6333;border-color:#9a7a43}.ticket{margin-top:14px;border:1px solid #4b3b28;border-radius:12px;background:linear-gradient(145deg,#171216,#0d0b0e);padding:13px;position:relative;overflow:hidden}.ticket:before{content:"";position:absolute;width:54px;height:54px;border:1px solid #7b6037;border-radius:50%;right:-10px;top:-13px;opacity:.3}.ticket .sigil{position:absolute;right:8px;top:5px;width:36px;height:36px;border:1px solid #7b6037;border-radius:50%;opacity:.28}.ticket .sigil:before{content:"";position:absolute;left:17px;top:3px;width:1px;height:30px;background:#9a7440;transform:rotate(18deg)}.ticket strong{font-size:15px}.ticket small{display:block;color:#a99d8f;margin-top:4px;font-size:10px}.ticket .cat{color:var(--gold2);font-size:9px;letter-spacing:.12em;margin-bottom:5px}
+.codexrow{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-top:1px solid #2a232a;border-bottom:1px solid #2a232a}.codexrow span{font-size:12px}.codexrow small{color:#91877d}.revive{padding:14px}.revivebox{border:1px solid #3d332b;border-radius:13px;background:linear-gradient(180deg,#151214,#0e0c0e);padding:14px;position:relative;overflow:hidden}.hand{width:74px;height:36px;margin:auto;position:relative}.hand:before{content:"";position:absolute;width:48px;height:12px;left:13px;top:3px;border-top:2px solid var(--gold);border-radius:50% 50% 0 0;transform:rotate(-8deg);opacity:.8}.hand:after{content:"";position:absolute;width:14px;height:20px;left:30px;bottom:0;border-left:2px solid var(--gold);border-right:2px solid var(--gold);border-radius:45% 45% 0 0;opacity:.75}.sunhalf{position:absolute;width:74px;height:37px;left:50%;top:-5px;transform:translateX(-50%);border:1px solid rgba(239,213,139,.5);border-radius:74px 74px 0 0;border-bottom:none}.revive h3{text-align:center;margin:5px 0 3px;font-size:14px}.revive p{text-align:center;margin:0;color:#9e9488;font-size:10px}.btn{display:block;width:100%;margin-top:10px;padding:10px;border:1px solid #7e6137;border-radius:9px;background:#1a1412;color:var(--gold2);font-weight:700}.watermark{text-align:center;padding:16px 0 4px;color:rgba(205,170,99,.12);font-size:10px;letter-spacing:.22em}.controls{display:flex;gap:8px;margin-top:12px}.controls button{flex:1;background:#151217;border:1px solid #3d333c;color:#d7cbb6;border-radius:9px;padding:9px;font-size:11px}.observe .seal{box-shadow:0 0 18px #efd58b35}.observe .portrait:after{box-shadow:0 0 11px #efd58b}.intervene .revivebox{border-color:#8c6a3b;box-shadow:0 0 20px #cdaa6317}.intervene .hand:before,.intervene .hand:after{box-shadow:0 0 7px #efd58b}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card" id="card">
+  <div class="top">
+    <div class="seal" id="seal"><span class="eye"></span></div>
+    <div class="title"><b>因果法典</b><small>CAUSAL CODEX · IMPERIAL OBSERVATION</small></div>
+    <div class="tags">QUIET</div>
+  </div>
+  <div class="quote">
+    <div class="portrait"><span class="halo"></span></div>
+    <div class="qtext"><div>世界允许第二次选择，但不替任何人删除第一次。</div><small>THE EMPRESS REMEMBERS</small></div>
+    <div class="replay">◉ 回听</div>
+  </div>
+  <div class="section">
+    <div class="label">DUAL CAUSALITY</div>
+    <div class="bars">
+      <div class="bar"><h3><span>⚖ 鲁迪因果</span><span>47 / 100</span></h3><div class="cells" id="karma"></div></div>
+      <div class="bar"><h3><span>🌍 世界纠正</span><span>22 / 100</span></h3><div class="cells" id="corr"></div></div>
+    </div>
+    <div class="ticket">
+      <div class="sigil"></div><div class="cat">∞ 因果 · DEATH DRAW</div><strong>主角光环断电</strong><small>本回合死法已锁定</small>
+    </div>
+  </div>
+  <div class="codexrow"><span>💀 百死图鉴　08 / 100</span><small>最近：主角光环断电　›</small></div>
+  <div class="revive">
+    <div class="revivebox">
+      <div class="sunhalf"></div><div class="hand"></div>
+      <h3>起来，账还没清。</h3><p>我允许你再站一次，但不会替你抹掉账。</p><button class="btn">♻ 一键复活鲁迪</button>
+    </div>
+    <div class="watermark">IMPERIAL OBSERVATION · THE EMPRESS REMEMBERS</div>
+  </div>
+</div>
+<div class="controls"><button onclick="mode('quiet')">QUIET</button><button onclick="mode('observe')">OBSERVE</button><button onclick="mode('intervene')">INTERVENE</button></div>
+</div>
+<script>
+function fill(id,n,cls){const e=document.getElementById(id);e.innerHTML='';for(let i=1;i<=20;i++){let d=document.createElement('i');d.className='cell '+(i<=n?cls:'')+(i===n?' gold':'');e.appendChild(d)}}fill('karma',10,'k');fill('corr',5,'c');
+const seal=document.getElementById('seal');for(let i=0;i<12;i++){let r=document.createElement('i');r.className='ray';r.style.transform=`rotate(${i*30}deg) translateY(-16px)`;seal.appendChild(r)}
+function mode(m){card.className='card '+(m==='quiet'?'':m);document.querySelector('.tags').textContent=m.toUpperCase()}
+</script>
+</body></html>
