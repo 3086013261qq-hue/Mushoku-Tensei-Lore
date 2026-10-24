@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "status": "formal_asset_naming_locked",
+  "base_path": "media/empress/",
+  "rules": [
+    "帝皇娘人物视觉只允许使用本清单中的正式图库。",
+    "禁止静静/后续施工自行搜索、生成或混入其他帝皇娘人物图。",
+    "EMP-BASE-01 为唯一主立绘。",
+    "UI 裁切按 role 使用；死亡签只取纹样/氛围，不重复塞完整人物。",
+    "复活区禁止重新生成手部；若裁切涉及复杂手势，改用半身或光纹。"
+  ],
+  "assets": [
+    {
+      "file": "EMP-BASE-01.webp",
+      "source_order": "第6张",
+      "role": "唯一正式主立绘",
+      "width": 1052,
+      "height": 1536,
+      "size_bytes": 316443,
+      "sha256": "9515be6d639bee34d6dc494c63b864529d53e7c2cf6e1e84c544c70680427e99"
+    },
+    {
+      "file": "EMP-LOCK-01.webp",
+      "source_order": "第3张",
+      "role": "首次/后续箴言锁屏圆章",
+      "width": 1536,
+      "height": 1052,
+      "size_bytes": 285894,
+      "sha256": "c8ce45521de767a72a359d653834eb8553f12eebe5019ab202c3ac9104dc9e5a"
+    },
+    {
+      "file": "EMP-QUOTE-01.webp",
+      "source_order": "第8张",
+      "role": "箴言栏侧影/轻量头像",
+      "width": 1052,
+      "height": 1536,
+      "size_bytes": 295278,
+      "sha256": "b61838b054fd9afa495b9dd09d7ba1eec8d25447c450f2ddce69f76cbe3fdd8f"
+    },
+    {
+      "file": "EMP-REVIVE-01.webp",
+      "source_order": "第9张",
+      "role": "复活区半身陪衬；禁止裁出复杂手势",
+      "width": 1536,
+      "height": 1052,
+      "size_bytes": 265154,
+      "sha256": "954639532b722dfdc5c3c6d8ea6c733a171e5214a7752b80d2ed4f2aed725883"
+    },
+    {
+      "file": "EMP-CODEX-01.webp",
+      "source_order": "第4张",
+      "role": "死亡法典/死亡签氛围主图",
+      "width": 1052,
+      "height": 1536,
+      "size_bytes": 320976,
+      "sha256": "934929807fa160a6684afa4f23e62284fe2255c874ffca7fe7d97d8b9fb85093"
+    },
+    {
+      "file": "EMP-ALT-01.webp",
+      "source_order": "第1张",
+      "role": "备用：宿命感回眸",
+      "width": 1052,
+      "height": 1536,
+      "size_bytes": 266279,
+      "sha256": "d7ca9829463a9a427d5c901bff6f7f09bfb7d7e197021d7d47fc7010bdade726"
+    },
+    {
+      "file": "EMP-ALT-02.webp",
+      "source_order": "第2张",
+      "role": "备用：近景/头像",
+      "width": 1052,
+      "height": 1536,
+      "size_bytes": 290021,
+      "sha256": "d274ffb5584005dce41083a009d0ac0634b80b5aac1538d5a2917612a7991dbc"
+    },
+    {
+      "file": "EMP-ALT-03.webp",
+      "source_order": "第5张",
+      "role": "备用：背影/法典插页",
+      "width": 1052,
+      "height": 1536,
+      "size_bytes": 323512,
+      "sha256": "882a57c84207e7886185c0f5161dfb568dd9ef7a312a41249087d11a9634a80e"
+    },
+    {
+      "file": "EMP-ALT-04.webp",
+      "source_order": "第7张",
+      "role": "备用：其他裁切",
+      "width": 1052,
+      "height": 1536,
+      "size_bytes": 296115,
+      "sha256": "e8c3500b67a84ca10491c42bf97dc83f765465f249a67885eba96eba3f4ceaf0"
+    }
+  ]
+}
