@@ -1,0 +1,36 @@
+{
+  "version": "0.1",
+  "rules": {
+    "range": [0, 100],
+    "eligible_after": "EMPEROR_T+3",
+    "dedupe": "permanent_by_id",
+    "no_retroactive_backfill": true
+  },
+  "entries": [
+    {"id":"CORR-C01","timeline":"时间线-第一卷(多选一)","event":"事件G1","anchor":"大树下的时光","delta":1,"type":["ACCOUNT"],"note":"保罗误判后道歉和解，责任不被父权身份吞掉。"},
+    {"id":"CORR-C02","timeline":"时间线-第一卷(多选一)","event":"事件H1","anchor":"男主角的决定","delta":1,"type":["BOUNDARY"],"note":"希露菲在被强行脱衣后保持身体距离，边界反应必须保留；后续情感红利另计因果。"},
+    {"id":"CORR-C03","timeline":"时间线-第二卷-下(多选一)","event":"事件E","anchor":"鲁迪乌斯偷袭内裤","delta":1,"type":["BOUNDARY","CONSEQUENCE"],"note":"睡眠状态越界被当场拒绝并产生即时关系后果。"},
+    {"id":"CORR-C04","timeline":"时间线-第二卷-下(多选一)","event":"事件G2","anchor":"生日之夜与五年之约","delta":1,"type":["BOUNDARY","ACCOUNT"],"note":"艾莉丝明确拒绝，鲁迪停止并道歉；后续异常宽容仍另计特权因果。"},
+    {"id":"CORR-C05","timeline":"时间线-第三卷(多选一)","event":"事件E2","anchor":"审问与瑞杰路德杀人","delta":1,"type":["ORDER","ACCOUNT"],"note":"鲁迪明确挑战无必要杀戮，促成瑞杰路德约束杀人行为。"},
+    {"id":"CORR-C06","timeline":"时间线-第四卷-下(多选一)","event":"事件G1","anchor":"偷窥艾莉丝换衣服与发情气味被抓包","delta":1,"type":["BOUNDARY","CONSEQUENCE"],"note":"偷窥被发现并被明确警告，边界获得外部执行。"},
+    {"id":"CORR-C07","timeline":"时间线-第五卷-上(多选一)","event":"事件D","anchor":"基斯调解父子矛盾","delta":1,"type":["ACCOUNT"],"note":"父子双方被迫面对各自错误，保罗承认期待与指责失当。"},
+    {"id":"CORR-C08","timeline":"时间线-第六卷(多选一)","event":"事件E1","anchor":"札诺巴解决问题","delta":2,"type":["ORDER","CONSEQUENCE"],"note":"帕库斯滥权导致人质危机后被剥夺权力并流放，人质获释。"},
+    {"id":"CORR-C09","timeline":"时间线-第六卷(多选一)","event":"事件I","anchor":"恢复与坦白","delta":1,"type":["TRUTH"],"note":"人神与诅咒信息被公开给瑞杰路德，知情选择增加。"},
+    {"id":"CORR-C10","timeline":"时间线-第七卷-下(多选一)","event":"事件C","anchor":"花街入口遭遇莎拉被扇耳光","delta":1,"type":["AGENCY","CONSEQUENCE"],"note":"莎拉听见侮辱后明确断绝接触，关系后果没有被男主身份吞掉。"},
+    {"id":"CORR-C11","timeline":"时间线-第十卷-下(多选一)","event":"事件A","anchor":"保罗的来信","delta":1,"type":["BOUNDARY"],"note":"希露菲对危险场景中的身体骚扰直接制止并指出风险。"},
+    {"id":"CORR-C12","timeline":"时间线-第二季-下(多选一)","event":"事件B2","anchor":"诺伦与爱夏","delta":1,"type":["AGENCY"],"note":"诺伦拒绝哥哥安排，坚持住校建立独立生活。"},
+    {"id":"CORR-C13","timeline":"时间线-第二季-下(多选一)","event":"事件B3","anchor":"大哥的心情","delta":1,"type":["ACCOUNT","AGENCY"],"note":"鲁迪倾听而非强制，向诺伦道歉并让其自行恢复。"},
+    {"id":"CORR-C14","timeline":"时间线-第十二卷-下(多选一)","event":"事件A","anchor":"归途中的旅行与感情纠葛","delta":1,"type":["BOUNDARY","AGENCY"],"note":"洛琪希拒绝以旅途中临时恋人方式绕过既有婚姻边界。"},
+    {"id":"CORR-C15","timeline":"时间线-第十八卷(多选一)","event":"事件A1","anchor":"回村途中的发泄","delta":1,"type":["SELF_RESTRAINT"],"note":"鲁迪拒绝把救命恩情兑换为身体报答。"},
+    {"id":"CORR-C16","timeline":"时间线-第十八卷(多选一)","event":"事件D","anchor":"家庭矛盾加剧与艾莉丝的提案","delta":2,"type":["AGENCY","SELF_RESTRAINT","FAIR_COST"],"note":"拒绝把莉妮亚娜作为家庭性资源，并决定寻找女仆之外的独立工作。"},
+    {"id":"CORR-C17","timeline":"时间线-第二十卷(多选一)","event":"事件A3","anchor":"克里夫的决心","delta":1,"type":["AGENCY"],"note":"克里夫主动选择不借鲁迪权势，靠自己建立事业。"},
+    {"id":"CORR-C18","timeline":"时间线-第二十二卷(多选一)","event":"事件A1","anchor":"鲁迪宣布禁欲","delta":1,"type":["ACCOUNT","BOUNDARY"],"note":"鲁迪主动建立可被他人执行的自我约束，艾莉丝获得明确制止权。"},
+    {"id":"CORR-C19","timeline":"时间线-第二十二卷(多选一)","event":"事件C1","anchor":"诱惑与克制","delta":1,"type":["SELF_RESTRAINT","ACCOUNT"],"note":"面对明确外遇诱惑时主动拒绝背叛伴侣。"},
+    {"id":"CORR-C20","timeline":"时间线-第二十二卷(多选一)","event":"事件G","anchor":"拜访米格路德村与洛琪希归省","delta":1,"type":["BOUNDARY","SELF_RESTRAINT"],"note":"洛琪希叫停后鲁迪立即收手并反省承诺。"},
+    {"id":"CORR-C21","timeline":"时间线-第二十三卷(多选一)","event":"事件C5","anchor":"鲁迪乌斯托付信件","delta":2,"type":["ACCOUNT","OLD_LIFE"],"note":"主动向前世兄弟递交道歉信，首次尝试跨越转生隔离承担旧世关系责任。"},
+    {"id":"CORR-C22","timeline":"时间线-第二十三卷(多选一)","event":"事件F3","anchor":"莎拉的告别与引退","delta":1,"type":["AGENCY","CLOSURE"],"note":"莎拉彻底脱离男主恋爱轨道并选择自己的未来，双方平等告别。"},
+    {"id":"CORR-C23","timeline":"时间线-蛇足篇-第二卷-下(多选一)","event":"事件G","anchor":"特典 分身与谢罪","delta":1,"type":["ACCOUNT","BOUNDARY"],"note":"鲁迪主动坦白人偶越界细节，七星的嫌恶和距离被保留而非被抹平。"},
+    {"id":"CORR-C24","timeline":"时间线-蛇足篇-第三卷(多选一)","event":"事件H","anchor":"鲁迪乌斯前世乱伦创伤","delta":1,"type":["TRUTH","OLD_LIFE"],"note":"前世核心秘密被公开，不再由转生身份永久隔离。"},
+    {"id":"CORR-C25","timeline":"时间线-蛇足篇-第二卷-上(多选一)","event":"事件E","anchor":"塞妮丝的怀表","delta":1,"type":["ORDER","ACCOUNT"],"note":"克蕾雅放下族群偏见，并为过去苛刻行为正式道歉。"}
+  ]
+}
