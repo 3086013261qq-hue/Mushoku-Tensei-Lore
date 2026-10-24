@@ -1,30 +1,29 @@
 {
-  "version": "0.1",
-  "status": "pending_binary_upload",
+  "version": "0.2",
+  "status": "ready",
   "runtime_asset": {
-    "path": "media/opening/imperial-causality-declaration-v2.ogg",
-    "format": "ogg/opus",
-    "bitrate_kbps": 80,
+    "path": "media/opening/imperial-causality-declaration-v2.mp3",
+    "source_file": "media/opening/帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.mp3",
+    "format": "audio/mpeg",
+    "bitrate_kbps": 320,
     "duration_seconds": 158.0,
-    "sha256": "186ab31f476eb9d332e0b3eda317b30294658513d0f803903d0f9bc7169e548d",
+    "size_bytes": 6324810,
+    "sha256": "96a57e49b84790ef07b8cfbc473220838ef179ec7e3438298a685e0da36c053e",
     "source_mix": "帝皇娘·因果宣言 + 青衣 + End Of Days",
-    "role": "first_boot_declaration_audio"
+    "role": "first_boot_declaration_audio",
+    "cdn_url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/opening/imperial-causality-declaration-v2.mp3"
   },
   "master_assets": [
     {
-      "file": "帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.mp3",
-      "status": "local_master",
-      "size_mib": 6.1
-    },
-    {
-      "file": "帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.wav",
-      "status": "local_master",
-      "size_mib": 40.0
+      "file": "media/opening/帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.mp3",
+      "status": "uploaded_master",
+      "size_bytes": 6324810
     }
   ],
   "notes": [
-    "正式运行时只引用OGG，不把MP3/WAV母带塞进卡体。",
-    "当前GitHub连接器无法直接上传本地二进制；运行时OGG已在工作区生成，等待正常git/文件上传放入目标path。",
-    "锁屏字幕按帝皇娘语音0~140.042s同步；140.042~158.0s为纯音乐尾奏与锁屏过渡。"
+    "正式运行时直接引用完整320kbps MP3，不再使用临时OGG口径。",
+    "ASCII运行时路径与用户上传的中文母带引用同一音频内容；中文母带保留不删除。",
+    "锁屏字幕按帝皇娘语音0~140.042s同步；140.042~158.0s为纯音乐尾奏与锁屏过渡。",
+    "卡体只保存远程URL，不内嵌Base64音频。"
   ]
 }
