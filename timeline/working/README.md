@@ -14,7 +14,7 @@
 - `TIMELINE-OVERLAY-EMPEROR_v0.1.md`：{{user}} 故事 T+3 帝皇娘降临。
 - `KARMA-GLOBAL-RULES_v0.2.md`：固定时间线因果规则。
 - `WORLD-CORRECTION-RULES_v0.1.md`：固定时间线纠正规则。
-- `runtime/000_当前唯一实时口径_v0.1.md`：正文实时双变量最高优先级规则。
+- `runtime/000_当前唯一实时口径_v0.2.md`：正文实时双变量 + 生死事实的最高优先级规则。
 - `timeline/working/opening-karma-baselines.v0.1.json`：46条时间线开局因果基线。
 - `tools/apply_realtime_layer_v0.1.py`：v0.3 → v0.4 可重建脚本。
 
@@ -56,6 +56,14 @@
 - 时间跳跃不按天数乘因果或纠正，只结算文本明确确认发生的事实。
 - 两值统一执行 `MAX(0, MIN(100, 原值 + Δ))`。
 
+## 生死事实
+
+正式组装阶段由 `runtime/000_当前唯一实时口径_v0.2.md` 将鲁迪最终生死事实并入同一个 `<causality>`。
+
+这只是死亡签/复活的机械事实，不改变 v0.4 因果/纠正算法：
+- 死亡本身因果 +0、纠正 +0；
+- 复活本身因果 +0、纠正 +0。
+
 ## 曲线基线
 
 ### 固定时间线因果
@@ -87,7 +95,7 @@
 - `/Mushoku-Tensei-Lore/timeline/working/opening-karma-baselines.v0.1.json`
 - `/Mushoku-Tensei-Lore/source/working/apply_realtime_layer_v0.1.py`
 - `/Mushoku-Tensei-Lore/worldbook/rules/实时因果与世界纠正_v0.1.md`
-- `/Mushoku-Tensei-Lore/runtime/000_当前唯一实时口径_v0.1.md`
+- `/Mushoku-Tensei-Lore/runtime/000_当前唯一实时口径_v0.2.md`
 - `/Mushoku-Tensei-Lore/qa/QA_REALTIME_v0.1.md`
 
 working v0.4 JSON SHA-256: `c7b869999b634e772cbc539e92e9d372a2fbad89c96025c043a64db018e8d131`
@@ -97,7 +105,8 @@ working v0.4 JSON SHA-256: `c7b869999b634e772cbc539e92e9d372a2fbad89c96025c043a6
 - `v0.1`：首版因果映射。
 - `v0.2`：慢性因果曲线。
 - `v0.3`：加入时间线世界纠正度。
-- `v0.4`：加入随机开局基线 + 正文实时因果/纠正双变量，为当前唯一基线。
+- `v0.4`：加入随机开局基线 + 正文实时因果/纠正双变量，为当前唯一数据基线。
+- `runtime v0.2`：只在正式装配层补入生死事实，不改变 v0.4 数值算法。
 
 ## 禁止事项
 
@@ -106,6 +115,6 @@ working v0.4 JSON SHA-256: `c7b869999b634e772cbc539e92e9d372a2fbad89c96025c043a6
 - 不得恢复“特权只观察、不计因果”的旧口径。
 - 不得把固定时间线的 `P1/P2/P3` 重新直接当作实时数值权重。
 - 不得把 `T22` 旧世回流候选改成开场自动灌满。
-- 不得把“鲁迪受苦”直接等同于世界纠正或因果偿还。
+- 不得把“鲁迪受苦/死亡”直接等同于世界纠正或因果偿还。
 - 不得回填帝皇 T+3 之前已经发生的纠正历史。
 - 不得另造第二套与 `<causality>` 并行的实时数据库。
