@@ -1,0 +1,30 @@
+{
+  "version": "0.1",
+  "status": "pending_binary_upload",
+  "runtime_asset": {
+    "path": "media/opening/imperial-causality-declaration-v2.ogg",
+    "format": "ogg/opus",
+    "bitrate_kbps": 80,
+    "duration_seconds": 158.0,
+    "sha256": "186ab31f476eb9d332e0b3eda317b30294658513d0f803903d0f9bc7169e548d",
+    "source_mix": "帝皇娘·因果宣言 + 青衣 + End Of Days",
+    "role": "first_boot_declaration_audio"
+  },
+  "master_assets": [
+    {
+      "file": "帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.mp3",
+      "status": "local_master",
+      "size_mib": 6.1
+    },
+    {
+      "file": "帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.wav",
+      "status": "local_master",
+      "size_mib": 40.0
+    }
+  ],
+  "notes": [
+    "正式运行时只引用OGG，不把MP3/WAV母带塞进卡体。",
+    "当前GitHub连接器无法直接上传本地二进制；运行时OGG已在工作区生成，等待正常git/文件上传放入目标path。",
+    "锁屏字幕按帝皇娘语音0~140.042s同步；140.042~158.0s为纯音乐尾奏与锁屏过渡。"
+  ]
+}
