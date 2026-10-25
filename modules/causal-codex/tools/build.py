@@ -32,7 +32,7 @@ def build():
     read=lambda name:json.loads((DATA/name).read_text())
     manifest=read('opening-media-manifest.v0.1.json')
     config={
-        'moduleVersion':'1.0.0',
+        'moduleVersion':'1.0.1',
         'seenKey':'mushoku_causal_codex_opening_seen_v1',
         'audioUrl':manifest['runtime_asset']['cdn_url'],
         'images':{asset['file']:'https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/'+asset['file']
@@ -44,7 +44,7 @@ def build():
     write(DATA/'cdn-config.json',json.dumps(config,ensure_ascii=False,indent=2)+'\n')
     write(SRC/'assets.js','// Generated from frozen design/media assets. No worldbook data.\nexport const ASSETS = '+json.dumps(assets,ensure_ascii=False,separators=(',',':'))+';\n')
     code=[]
-    for name in ['assets.js','core.js','catalog.js','view.js','runtime.js']:
+    for name in ['assets.js','core.js','facts.js','catalog.js','view.js','runtime.js']:
         text=(SRC/name).read_text()
         text=re.sub(r'^import .+;\n','',text,flags=re.M)
         text=re.sub(r'^export ','',text,flags=re.M)
@@ -59,7 +59,7 @@ $(async () => {
   } catch(error) {console.error('[CausalCodex] initialization failed',error);}
 });
 """
-    bundle='// Independent Causal Codex MVU module 1.0.0\n(()=>{\n'+ '\n'.join(code)+entry+'\n})();\n'
+    bundle='// Independent Causal Codex MVU module 1.0.1\n(()=>{\n'+ '\n'.join(code)+entry+'\n})();\n'
     assert '</script' not in bundle.lower(), 'Embedded script closing tag would break Tavern Helper'
     write(DIST/'causal-codex.js',bundle)
     scripts=[]

@@ -41,14 +41,16 @@ export function createView(host,{css,config,catalog,captions,onRevive,onFill,sto
   function quote() {return QUOTES[Math.abs(Number(current?.turn)||0)%QUOTES.length];}
   function cells(field,fact,state,newMarks) {
     const cls=field==='karma'?'k':'c';
-    return `<div class="cells" role="img" aria-label="${field==='karma'?'因果':'纠正'}阈值记录；当前${fact[field]}点">${Array.from({length:20},(_,i)=>{
+    return `<div class="cells" data-meter="${field}" role="img" aria-label="${field==='karma'?'因果':'纠正'}进度；当前${fact?fact[field]:'待定'}点">${Array.from({length:20},(_,i)=>{
       const key=String((i+1)*5),hit=state.marks[field][key],historical=state.historical[field][key];
-      return `<i class="cell ${hit?cls:''} ${historical?'historical':''} ${newMarks[field]?.includes(key)?'fresh':''}" aria-hidden="true"></i>`;
+      const filled=fact && Number(key)<=fact[field];
+      return `<i class="cell ${filled?cls+' current':''} ${hit?'recorded':''} ${historical?'historical':''} ${newMarks[field]?.includes(key)?'fresh':''}" aria-hidden="true"></i>`;
     }).join('')}</div>`;
   }
   function render(data) {
     current=data;
     const {fact,state,turn,notice=''}=data;
+    const displayFact=fact || data.displayFact || null;
     const fresh=!animatedTurns.has(String(turn));
     const newMarks=fresh?(data.newMarks||{karma:[],correction:[]}):{karma:[],correction:[]};
     const drawn=fresh?data.drawn:null;
@@ -61,10 +63,10 @@ export function createView(host,{css,config,catalog,captions,onRevive,onFill,sto
       <div class="portrait">${image('EMP-QUOTE-01.webp','','帝皇娘箴言侧影')}</div>
       <div class="qtext"><div>${escapeHTML(quote())}</div><small>THE EMPRESS REMEMBERS</small></div>
       <button class="replay" data-action="replay">◉ 回听宣言</button></div>
-      <div class="section"><div class="label">DUAL CAUSALITY</div>${fact?`<div class="bars">
-      <div class="bar"><h3><span>⚖ 鲁迪因果</span><span>${fact.karma} / 100 · ${escapeHTML(fact.karmaPhase)}</span></h3>${cells('karma',fact,state,newMarks)}</div>
-      <div class="bar"><h3><span>🌍 世界纠正</span><span>${fact.correction} / 100 · ${escapeHTML(fact.correctionPhase)}</span></h3>${cells('correction',fact,state,newMarks)}</div>
-      <p class="legend">低亮：历史基线 · 常亮：监察后已跨阈值 · 每格5点<br>${fact.active?'帝皇监察已激活':'T+3监察尚未激活'} · 鲁迪${dead?'死亡':'存活'}${state.revivePending?' · 已复活，等待下轮正文继承':''}</p></div>`:'<p class="empty">等待一个完整有效的 &lt;causality&gt; 状态块。</p>'}
+      <div class="section"><div class="label">DUAL CAUSALITY</div><div class="bars" aria-label="因果与世界纠正数值">
+      <div class="bar" data-value="karma"><h3><span class="meter-name">⚖ 鲁迪因果</span><span class="meter-reading"><strong class="meter-number">${displayFact?displayFact.karma:'--'} <small>/ 100</small></strong><span class="meter-phase">${displayFact?escapeHTML(displayFact.karmaPhase):'待结算'}</span></span></h3>${cells('karma',displayFact,state,newMarks)}</div>
+      <div class="bar" data-value="correction"><h3><span class="meter-name">🌍 世界纠正</span><span class="meter-reading"><strong class="meter-number">${displayFact?displayFact.correction:'--'} <small>/ 100</small></strong><span class="meter-phase">${displayFact?escapeHTML(displayFact.correctionPhase):'待结算'}</span></span></h3>${cells('correction',displayFact,state,newMarks)}</div>
+      <p class="legend">每格5点 · 填色：当前进度 · 金边：已跨阈值 · 低亮：历史基线${displayFact?`<br>${displayFact.active?'帝皇监察已激活':'T+3监察尚未激活'}${fact?` · 鲁迪${dead?'死亡':'存活'}`:''}${state.revivePending?' · 已复活，等待下轮正文继承':''}`:''}</p></div>
       ${item?`<div class="ticket ${drawn===item.id?'new-ticket':''}">${image('EMP-CODEX-01.webp','ticketart','死亡法典暗纹')}
       <div class="ticketcontent"><div class="cat">${escapeHTML(catalog.categories[item.category].icon+' '+item.category)} · DEATH DRAW</div>
       <strong>${escapeHTML(item.name)}</strong><small>${record.status==='settled'?'已结算 · SETTLED':'已锁定 · 等待正文在合理场景确认死亡'}</small>
@@ -151,6 +153,7 @@ export function createView(host,{css,config,catalog,captions,onRevive,onFill,sto
     lock.hidden=false;body.hidden=true;mode('INTERVENE');
     lock.innerHTML=`<div class="opening-top"><small>CAUSAL CODEX · ${replay?'REPLAY':'FIRST BOOT'}</small><button data-action="skip">跳过</button></div>
       <div class="lock-portrait">${image('EMP-LOCK-01.webp','','帝皇宣言圆章',true)}</div>
+      <div class="oracle-backdrop" aria-hidden="true"><div class="oracle-halo"></div><div class="oracle-hex"></div><div class="oracle-crest"><i></i><i></i><b></b></div><div class="oracle-frame"></div></div>
       <div class="magic-ring" aria-hidden="true"></div><div class="captions"><div class="previous-cue"></div><div class="current-cue">因果法典</div></div>
       <div class="opening-controls"><button data-action="play" hidden>播放宣言</button><button data-action="pause">暂停 / 继续</button></div>`;
     wireImageFallback();

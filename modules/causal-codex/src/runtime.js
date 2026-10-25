@@ -2,6 +2,7 @@ import {clone,parseCausality,initialMechanics,advanceMechanics,reviveMechanics,r
 import {readDeathCatalog} from './catalog.js';
 import {createView} from './view.js';
 import {ASSETS} from './assets.js';
+import {readLatestCausality} from './facts.js';
 
 // Only the MVU store is used for mechanics. No narrative scores in localStorage.
 export function createMvuStore(Mvu) {
@@ -43,7 +44,7 @@ export async function startTavern(api) {
   parent.CausalCodex?.dispose?.();
   const catalog=readDeathCatalog(ASSETS.baseCatalog,ASSETS.catalogMetadata);
   const store=createMvuStore(Mvu);let view=null,host=null,epoch=0,disposed=false,tail=Promise.resolve();
-  let lastFact=null,lastTurn=null,sceneProvider=null;const scenes=new Map(),listeners=[];
+  let lastFact=null,lastTurn=null,lastDisplay=null,sceneProvider=null;const scenes=new Map(),listeners=[];
   const enqueue=task=>{const expected=epoch;tail=tail.catch(()=>{}).then(async()=>{
     if(disposed || expected!==epoch)return;
     try{await task(expected);}catch(error){view?.feedback(error.message);console.error('[CausalCodex]',error);}
@@ -84,11 +85,16 @@ export async function startTavern(api) {
   async function refreshTask(expected) {
     const target=latestAssistant();if(!target || !ensureHost(target.id))return;
     const state=await store.read();if(expected!==epoch)return;
-    let fact;
-    try{fact=parseCausality(target.message.message);}catch(error){
+    const valid=readLatestCausality(getChatMessages,target.id);
+    if(lastDisplay?.sourceId>target.id)lastDisplay=null;
+    if(valid && (!lastDisplay || valid.sourceId>=lastDisplay.sourceId))lastDisplay=valid;
+    const current=valid?.sourceId===target.id?valid:null;
+    if(!current){
       lastFact=null;lastTurn=null;
-      view.render({fact:null,state,turn:target.id,notice:error.message});return;
+      view.render({fact:null,displayFact:lastDisplay?.fact||null,state,turn:target.id,
+        notice:lastDisplay?'本轮尚无完整有效结算；沿用最近一次有效因果与纠正值。':'等待首次因果结算'});return;
     }
+    const fact=current.fact;
     const scene=await sceneFor(target.id,fact);if(expected!==epoch)return;
     const outcome=advanceMechanics(state,fact,target.id,catalog,scene);
     if(JSON.stringify(outcome.state)!==JSON.stringify(state))await store.write(outcome.state,()=>expected===epoch && !disposed);
@@ -125,7 +131,7 @@ export async function startTavern(api) {
   // VARIABLE_UPDATE_ENDED precedes storage commit; refresh on the next task.
   subscribe(Mvu.events?.VARIABLE_UPDATE_ENDED || 'mag_variable_update_ended',schedule);
   subscribe(tavern_events.CHAT_CHANGED,()=>{
-    epoch++;scenes.clear();lastFact=null;lastTurn=null;view?.destroy();view=null;host=null;
+    epoch++;scenes.clear();lastFact=null;lastTurn=null;lastDisplay=null;view?.destroy();view=null;host=null;
     setTimeout(refresh,0);
   });
   const publicApi={

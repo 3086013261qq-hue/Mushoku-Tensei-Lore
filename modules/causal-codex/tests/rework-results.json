@@ -1,0 +1,30 @@
+{
+  "passed": 24,
+  "checks": [
+    "opening 320px: layered background; unobscured 44px controls; no text overflow; pause/resume",
+    "opening 360px: layered background; unobscured 44px controls; no text overflow; pause/resume",
+    "opening 390px: layered background; unobscured 44px controls; no text overflow; pause/resume",
+    "opening 440px: layered background; unobscured 44px controls; no text overflow; pause/resume",
+    "original cue 11/21, postlude, 158s close, source MP3, volume and quote lock preserved",
+    "no valid causality: two permanent --/100 readouts and 40 cells",
+    "karma/correction 0: exact supplied phase and 0/20 current cells",
+    "karma/correction 5: exact supplied phase and 1/20 current cells",
+    "karma/correction 19: exact supplied phase and 3/20 current cells",
+    "karma/correction 20: exact supplied phase and 4/20 current cells",
+    "karma/correction 40: exact supplied phase and 8/20 current cells",
+    "karma/correction 60: exact supplied phase and 12/20 current cells",
+    "karma/correction 80: exact supplied phase and 16/20 current cells",
+    "karma/correction 100: exact supplied phase and 20/20 current cells",
+    "decreasing scores update current fill while threshold history remains recorded",
+    "missing/incomplete latest output and reload retain latest valid numbers without mechanical writes",
+    "incomplete streaming edit retains the last successful display in this chat",
+    "numeric panel 320px: 40 cells, readable numbers/phases, no overflow",
+    "numeric panel 360px: 40 cells, readable numbers/phases, no overflow",
+    "numeric panel 390px: 40 cells, readable numbers/phases, no overflow",
+    "numeric panel 440px: 40 cells, readable numbers/phases, no overflow",
+    "chat switch clears the display fallback and does not leak prior values",
+    "manual replay, skip and disabling automatic opening remain functional",
+    "rebuilt standalone dist includes the permanent readouts"
+  ],
+  "errors": []
+}

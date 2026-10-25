@@ -1,4 +1,6 @@
-# 因果法典 · 独立 MVU 模块 v1.0.0
+# 因果法典 · 独立 MVU 模块 v1.0.1
+
+本轮直接基线为已交付的独立模块，施工起点为 `b90e5a54a4723b49e0cb9690b41636de81ac05b1`。仅修数值可视化与宣言背景：双数字/阶段区常驻，最新回复缺块时回看最近有效结算；首次尚未结算显示 `-- / 100`。宣言新增纯CSS黑曜石、圣金日轮、六面魔法纹和字幕承载面板。播放、字幕时间轴、死亡机制、世界书均未改动。
 
 本包只包含 MVU 源码、接口、机械状态、冻结媒体配置、mock 测试页与接入说明。没有完整角色卡、character_book 业务正文、Candidate JSON 或 Candidate PNG，也不会读取或生成它们。
 
@@ -15,6 +17,7 @@
 | `dist/schema-extension.js` | 已有 schema 时使用的扩展定义，不含第二个 registrar |
 | `src/initvar.yaml` | 根字段初始化，不带 stat_data 包裹 |
 | `src/core.js` | causality 解析、阈值去重、唯一 pending、抽签、结算、复活 |
+| `src/facts.js` | 只读查找聊天中最近一个完整有效 causality；忽略用户消息与未完成/无效块 |
 | `src/runtime.js` | Mvu 读写、只读字段保护、单实例挂载、生命周期、输入框桥 |
 | `src/view.js` | 锁屏、字幕、20格、翻签、图鉴、复活视图 |
 | `src/panel.css` / `src/mobile.css` | v0.8 视觉与手机端、低动效补充 |
@@ -44,7 +47,11 @@
 
 ## 公开事实与场景接口
 
-从 `getChatMessages(id)[0].message` 读取原始 `<causality>`，需要唯一、完整的一块，包含 runtime v0.2 的数值、阶段名、生死及 RT。两个数值直接显示，阶段名直接读取，前端不重算伦理，不从叙述推算日期或 T+3。
+从 `getChatMessages(id)[0].message` 读取原始 `<causality>`，每个完整块仍采用 runtime v0.2 的数值、阶段名、生死及 RT 格式。由新到旧查找 assistant 消息，并在同条消息中由后向前选最近的完整有效块；忽略用户消息、无效块和未完成的流式输出。两个数值和阶段名直接读取，前端不重算伦理，不从叙述推算日期或 T+3。
+
+显示值不会因最新回复缺块而消失：向前读取最近有效值；当前消息流式编辑暂时失去完整块时，在本聊天内保留最近成功显示的原值；换聊天清空这份短暂显示缓存。缓存不写入另一套数值数据库，也不用于机械结算。缺块时不推进阈值、抽签或死亡状态。没有任何有效记录时两条数字显示 `-- / 100`、阶段显示待结算、提示“等待首次因果结算”，40格仍保留。
+
+数字旁显式显示原块给出的阶段：因果为潜伏/裂纹/渗出/偏移/清算/极限，纠正为萌芽/局部纠偏/结构松动/秩序重构/深层校正/高位稳态。当前进度填色数量为 `floor(读取值 / 5)`；过去已跨阈值以金边记录，历史基线低亮。数值下降时当前填色随之下降，机械阈值记录不清除、不重抽。
 
 死亡词条必须先匹配场景。冻结的标准 causality 没有必填 scene_tags，因此不能凭空把“日常”当作所有场景的默认值。主装配侧可通过下面任一公开方式提供**明确的当前场景事实**：
 
@@ -85,13 +92,13 @@ window.parent.CausalCodex.setSceneProvider(({messageId, causality}) => {
 
 字幕按 MP3 currentTime 匹配31段 cue；140.042 秒进入无新字幕尾奏，151.5 秒浮现箴言，158 秒收束。媒体本体实测 MP3 容器时长158.093秒，视觉按已冻结的158秒收束，音轨本体不做裁切或修改。
 
-普通顺序：箴言 → 双20格 → 本回合/最近死亡签 → 图鉴 → 复活。QUIET 金印40%、OBSERVE 短亮350ms、INTERVENE 仅宣言/回听/复活。未发现名称在 DOM 中只呈现“未记录”；类别内分页与内部滚动，不把100条一次铺开。Shadow DOM 隔离宿主 CSS。主立绘仅在手动视觉锚点中出现；图库 ALT 不替换正式主立绘。
+普通顺序：箴言 → 双20格 → 本回合/最近死亡签 → 图鉴 → 复活。QUIET 金印40%、OBSERVE 短亮350ms、INTERVENE 仅宣言/回听/复活。未发现名称在 DOM 中只呈现“未记录”；类别内分页与内部滚动，不把100条一次铺开。Shadow DOM 隔离宿主 CSS。主立绘仅在手动视觉锚点中出现；图库 ALT 不替换正式主立绘。v1.0.1的开屏装饰均为非交互CSS层，位于字幕与按钮之后；不引入视频、外部图片或持续闪烁。
 
 ## 本地复现
 
 ```sh
 cd modules/causal-codex
-node --test tests/core.test.mjs
+node --test tests/*.test.mjs
 python3 tools/build.py
 python3 -m http.server 8765
 # 浏览器打开 http://127.0.0.1:8765/demo/
@@ -103,6 +110,7 @@ python3 -m http.server 8765
 
 ```sh
 PLAYWRIGHT_MODULE=/path/to/node_modules/playwright node tests/browser.cjs
+PLAYWRIGHT_MODULE=/path/to/node_modules/playwright node tests/rework-browser.cjs
 ```
 
-测试脚本会自动启动并关闭自己的本地HTTP服务。浏览器测试中的 Audio 是可控 mock；真实 Android 音频策略、酒馆助手初始化和模型继承循环仍需实机验证，详见 QA。
+两个浏览器脚本须顺序运行，各自自动启动并关闭本地HTTP服务。新增的四尺寸开屏/数值静态图在 `tests/rework-static/`，24项返工检查结果在 `tests/rework-results.json`。浏览器测试中的 Audio 是可控 mock；真实 Android 音频策略、酒馆助手初始化和模型继承循环仍需实机验证，详见 QA。
