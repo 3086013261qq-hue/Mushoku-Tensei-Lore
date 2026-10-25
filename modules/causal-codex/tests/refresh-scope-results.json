@@ -1,0 +1,14 @@
+{
+  "baseline": "33c49205761760d1215b7417ac6f90e5a0b13ee1",
+  "changed_existing_files": [
+    "modules/causal-codex/dist/causal-codex.js",
+    "modules/causal-codex/dist/tavern-helper-scripts.json",
+    "modules/causal-codex/src/facts.js",
+    "modules/causal-codex/src/runtime.js",
+    "modules/causal-codex/tests/facts.test.mjs"
+  ],
+  "all_other_downloaded_module_text_blobs": "byte-identical to baseline",
+  "scope": "independent MVU only; no worldbook/card/timeline/media edits",
+  "unit_tests": 22,
+  "browser_checks": 60
+}

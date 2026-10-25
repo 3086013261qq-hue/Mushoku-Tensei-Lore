@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}#chat{width:100%}.mes_text{min-width:0}</style></head><body><div id="chat"></div><textarea id="send_textarea"></textarea><script type="module">
+import {startTavern} from '../src/runtime.js';
+const params=new URLSearchParams(location.search),rows=[],handlers=new Map(),values={};
+const counters={reads:0,writes:0,rolls:0};
+const random=Math.random;Math.random=()=>{counters.rolls++;return random();};
+const raw=(n,life='存活',death='无')=>`<causality>\n⚖️鲁迪因果: ${n}/100｜阶段: 潜伏\n🌍世界纠正: ${n}/100｜阶段: 萌芽\n💀鲁迪生死: ${life}｜死法: ${death}\n<!--RT:OPEN=TEST;BASE=0;KSET=;CSET=;OLD01=0;CORR_ACTIVE=1;SCENE_TAGS=日常,饮食;RUDY_PRESENT=1-->\n</causality>`;
+function add(row){rows.push(row);const node=document.createElement('div');node.className='mes';node.setAttribute('mesid',rows.length-1);node.innerHTML='<div class="mes_text">AI</div>';document.querySelector('#chat').append(node);}
+const events={VARIABLE_INITIALIZED:'mag_variable_initialized',VARIABLE_UPDATE_ENDED:'mag_variable_update_ended',BEFORE_MESSAGE_UPDATE:'mag_before_message_update'};
+const tavern_events=Object.fromEntries(['CHARACTER_MESSAGE_RENDERED','MESSAGE_UPDATED','MESSAGE_SWIPED','MESSAGE_DELETED','CHAT_CHANGED','GENERATION_ENDED'].map(x=>[x,x]));
+const maybe=value=>params.has('async')?Promise.resolve(value):value;
+const api={parent:window,tavern_events,
+ getLastMessageId:()=>maybe(rows.length-1),
+ getChatMessages:id=>{counters.reads++;return maybe(rows[id]?[structuredClone(rows[id])]:[]);},
+ eventOn:(name,cb)=>{if(!handlers.has(name))handlers.set(name,new Set());handlers.get(name).add(cb);return{stop:()=>handlers.get(name).delete(cb)};},
+ Mvu:{events,getMvuData:opts=>structuredClone(values[opts.type==='chat'?'chat':opts.message_id]||{}),replaceMvuData:(v,opts)=>{counters.writes++;values[opts.type==='chat'?'chat':opts.message_id]=structuredClone(v);}}
+};
+localStorage.setItem('mushoku_causal_codex_opening_seen_v1','true');
+add({role:'assistant',message:raw(0)});
+if(params.has('bundle')){Object.assign(window,api,{$:cb=>cb(),waitGlobalInitialized:async()=>{}});await import('../dist/causal-codex.js');}
+else await startTavern(api);
+window.fixture={api,rows,add,raw,counters,values,emit:name=>{for(const cb of handlers.get(name)||[])cb();},state:()=>structuredClone(values.chat.stat_data.$causal_codex)};
+</script></body></html>

@@ -184,11 +184,14 @@ function visibleEntries(catalog,state,category,query='') {
 
 // Read-only display lookup. Skip streaming/incomplete/invalid blocks and never
 // derive scores, phases, dates or mechanical consequences from narrative text.
-function readLatestCausality(getChatMessages,lastId) {
+const isAssistant=row=>Boolean(row && row.is_user !== true && (!row.role || row.role === 'assistant'));
+const messageText=row=>row.message ?? row.mes ?? '';
+
+async function readLatestCausality(getChatMessages,lastId) {
   for(let id=Number(lastId);id>=0;id--) {
-    const message=getChatMessages(id)?.[0];
-    if(message?.role!=='assistant')continue;
-    const blocks=[...String(message.message||'').matchAll(/<causality>[\s\S]*?<\/causality>/g)];
+    const message=(await Promise.resolve(getChatMessages(id)))?.[0];
+    if(!isAssistant(message))continue;
+    const blocks=[...String(messageText(message)).matchAll(/<causality>[\s\S]*?<\/causality>/g)];
     for(let index=blocks.length-1;index>=0;index--) {
       try{return {fact:parseCausality(blocks[index][0]),sourceId:id};}catch{}
     }
@@ -449,16 +452,18 @@ async function startTavern(api) {
     if(!event)return;
     const listener=eventOn(event,callback);listeners.push({event,callback,listener});
   }
-  function latestAssistant() {
-    for(let id=getLastMessageId();id>=0;id--){
-      const message=getChatMessages(id)?.[0];
-      if(message?.role==='assistant')return {id,message};
+  async function latestAssistant() {
+    for(let id=Number(await Promise.resolve(getLastMessageId()));id>=0;id--){
+      const message=(await Promise.resolve(getChatMessages(id)))?.[0];
+      if(isAssistant(message))return {id,message};
     }
     return null;
   }
   function ensureHost(id) {
     const box=document.querySelector(`#chat > .mes[mesid="${Number(id)}"] .mes_text`);
     if(!box)return false;
+    // Reattach the same host after a new floor or DOM redraw; remove stale copies.
+    document.querySelectorAll('.causal-codex-host').forEach(node=>{if(node!==host)node.remove();});
     if(host && host.parentElement!==box)box.appendChild(host);
     if(!host){
       document.querySelectorAll('.causal-codex-host').forEach(node=>node.remove());
@@ -479,9 +484,10 @@ async function startTavern(api) {
       rudyPresent:fact.rt.RUDY_PRESENT==='1',emperorPresent:fact.rt.EMPEROR_PRESENT==='1'};
   }
   async function refreshTask(expected) {
-    const target=latestAssistant();if(!target || !ensureHost(target.id))return;
+    const target=await latestAssistant();if(disposed || expected!==epoch || !target || !ensureHost(target.id))return;
     const state=await store.read();if(expected!==epoch)return;
-    const valid=readLatestCausality(getChatMessages,target.id);
+    const valid=await readLatestCausality(getChatMessages,target.id);
+    if(disposed || expected!==epoch)return;
     if(lastDisplay?.sourceId>target.id)lastDisplay=null;
     if(valid && (!lastDisplay || valid.sourceId>=lastDisplay.sourceId))lastDisplay=valid;
     const current=valid?.sourceId===target.id?valid:null;
@@ -501,9 +507,9 @@ async function startTavern(api) {
   const refresh=()=>enqueue(refreshTask);
   const revive=()=>enqueue(async expected=>{
     if(!lastFact || lastTurn===null)return;
-    const target=latestAssistant();if(!target || target.id!==lastTurn)return;
+    const target=await latestAssistant();if(disposed || expected!==epoch || !target || target.id!==lastTurn)return;
     // Re-read the public fact to avoid a stale enabled button.
-    const fact=parseCausality(target.message.message),state=await store.read();
+    const fact=parseCausality(messageText(target.message)),state=await store.read();
     if(expected!==epoch)return;
     const result=reviveMechanics(state,fact,lastTurn);if(!result.changed)return;
     await store.write(result.state,()=>expected===epoch && !disposed);if(expected!==epoch)return;
@@ -520,21 +526,35 @@ async function startTavern(api) {
     else delete next.stat_data.$causal_codex;
   }
   subscribe(Mvu.events?.VARIABLE_UPDATE_ENDED || 'mag_variable_update_ended',guardMechanicalProjection);
-  const schedule=()=>{setTimeout(refresh,0);};
-  for(const key of ['CHARACTER_MESSAGE_RENDERED','MESSAGE_UPDATED','MESSAGE_SWIPED','MESSAGE_DELETED'])subscribe(tavern_events[key],schedule);
+  const delayed=new Set();
+  const clearDelayed=()=>{for(const timer of delayed)clearTimeout(timer);delayed.clear();};
+  const schedule=()=>{
+    if(disposed)return;
+    refresh();
+    const expected=epoch;
+    const timer=setTimeout(()=>{
+      delayed.delete(timer);
+      if(!disposed && expected===epoch)refresh();
+    },120);
+    delayed.add(timer);
+  };
+  for(const key of ['CHARACTER_MESSAGE_RENDERED','MESSAGE_UPDATED','MESSAGE_SWIPED','MESSAGE_DELETED','GENERATION_ENDED'])subscribe(tavern_events?.[key],schedule);
   subscribe(Mvu.events?.VARIABLE_INITIALIZED || 'mag_variable_initialized',schedule);
   subscribe(Mvu.events?.BEFORE_MESSAGE_UPDATE || 'mag_before_message_update',schedule);
-  // VARIABLE_UPDATE_ENDED precedes storage commit; refresh on the next task.
+  // The delayed second read covers events emitted before the storage commit.
   subscribe(Mvu.events?.VARIABLE_UPDATE_ENDED || 'mag_variable_update_ended',schedule);
-  subscribe(tavern_events.CHAT_CHANGED,()=>{
-    epoch++;scenes.clear();lastFact=null;lastTurn=null;lastDisplay=null;view?.destroy();view=null;host=null;
-    setTimeout(refresh,0);
+  subscribe(tavern_events?.CHAT_CHANGED,()=>{
+    clearDelayed();epoch++;scenes.clear();lastFact=null;lastTurn=null;lastDisplay=null;view?.destroy();view=null;host=null;
+    schedule();
   });
+  const polling=setInterval(()=>{
+    if(!disposed && document.visibilityState!=='hidden' && document.querySelector('#chat'))refresh();
+  },1000);
   const publicApi={
     refresh,
     setSceneContext(messageId,scene){scenes.set(String(messageId),clone(scene));return refresh();},
     setSceneProvider(provider){if(typeof provider!=='function')throw new Error('scene provider must be a function');sceneProvider=provider;return refresh();},
-    dispose(){disposed=true;epoch++;view?.destroy();for(const {event,callback,listener} of listeners){
+    dispose(){disposed=true;epoch++;clearInterval(polling);clearDelayed();view?.destroy();for(const {event,callback,listener} of listeners){
       if(listener?.stop)listener.stop();else if(api.eventRemoveListener)api.eventRemoveListener(event,callback);
     }parent.removeEventListener('pagehide',publicApi.dispose);if(parent.CausalCodex===publicApi)delete parent.CausalCodex;}
   };
