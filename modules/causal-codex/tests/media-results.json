@@ -1,0 +1,52 @@
+[
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/opening/imperial-causality-declaration-v2.mp3",
+    "status": 200,
+    "content_type": "audio/mpeg"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-BASE-01.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-LOCK-01.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-QUOTE-01.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-REVIVE-01.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-CODEX-01.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-01.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-02.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-03.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-04.webp",
+    "status": 200,
+    "content_type": "image/webp"
+  }
+]

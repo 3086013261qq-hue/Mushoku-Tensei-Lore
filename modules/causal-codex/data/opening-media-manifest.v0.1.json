@@ -1,0 +1,29 @@
+{
+  "version": "0.2",
+  "status": "ready",
+  "runtime_asset": {
+    "path": "media/opening/imperial-causality-declaration-v2.mp3",
+    "source_file": "media/opening/帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.mp3",
+    "format": "audio/mpeg",
+    "bitrate_kbps": 320,
+    "duration_seconds": 158.0,
+    "size_bytes": 6324810,
+    "sha256": "96a57e49b84790ef07b8cfbc473220838ef179ec7e3438298a685e0da36c053e",
+    "source_mix": "帝皇娘·因果宣言 + 青衣 + End Of Days",
+    "role": "first_boot_declaration_audio",
+    "cdn_url": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/opening/imperial-causality-declaration-v2.mp3"
+  },
+  "master_assets": [
+    {
+      "file": "media/opening/帝皇娘_因果宣言_青衣_EndOfDays_宿命帝皇混音_v2.mp3",
+      "status": "uploaded_master",
+      "size_bytes": 6324810
+    }
+  ],
+  "notes": [
+    "正式运行时直接引用完整320kbps MP3，不再使用临时OGG口径。",
+    "ASCII运行时路径与用户上传的中文母带引用同一音频内容；中文母带保留不删除。",
+    "锁屏字幕按帝皇娘语音0~140.042s同步；140.042~158.0s为纯音乐尾奏与锁屏过渡。",
+    "卡体只保存远程URL，不内嵌Base64音频。"
+  ]
+}

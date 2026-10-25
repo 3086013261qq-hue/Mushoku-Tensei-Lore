@@ -1,0 +1,10 @@
+_causal_codex:
+  _death_seen: {}
+  _death_marks_karma: {}
+  _death_marks_correction: {}
+  _pending_death_trigger: null
+  _last_death: null
+  _revive_count: 0
+  _revive_pending: null
+  _last_death_draw_turn: ''
+  _mechanical_notice: ''

@@ -1,0 +1,16 @@
+{
+  "moduleVersion": "1.0.0",
+  "seenKey": "mushoku_causal_codex_opening_seen_v1",
+  "audioUrl": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/opening/imperial-causality-declaration-v2.mp3",
+  "images": {
+    "EMP-BASE-01.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-BASE-01.webp",
+    "EMP-LOCK-01.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-LOCK-01.webp",
+    "EMP-QUOTE-01.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-QUOTE-01.webp",
+    "EMP-REVIVE-01.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-REVIVE-01.webp",
+    "EMP-CODEX-01.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-CODEX-01.webp",
+    "EMP-ALT-01.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-01.webp",
+    "EMP-ALT-02.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-02.webp",
+    "EMP-ALT-03.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-03.webp",
+    "EMP-ALT-04.webp": "https://cdn.jsdelivr.net/gh/3086013261qq-hue/Mushoku-Tensei-Lore@main/media/empress/EMP-ALT-04.webp"
+  }
+}

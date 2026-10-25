@@ -1,0 +1,19 @@
+{
+  "passed": 13,
+  "checks": [
+    "autoplay rejection exposes gesture button",
+    "subtitle cue 21, postlude, 158s closing and persistent seen",
+    "width 320: no overflow; visible touch targets >=44px",
+    "width 360: no overflow; visible touch targets >=44px",
+    "width 390: no overflow; visible touch targets >=44px",
+    "width 440: no overflow; visible touch targets >=44px",
+    "threshold draw and real input event bridge",
+    "refresh retains selected death and does not replay first declaration",
+    "codex undiscovered cells do not reveal names",
+    "settlement, revive preservation, model mechanical-write guard",
+    "reduced-motion disables animations",
+    "CDN/audio failure leaves codex accessible and does not mark seen",
+    "distributed standalone bundle initializes against mocked Tavern Helper APIs"
+  ],
+  "errors": []
+}
