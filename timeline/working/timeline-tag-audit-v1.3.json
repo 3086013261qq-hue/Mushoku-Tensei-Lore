@@ -1,0 +1,54 @@
+{
+  "version": "v1.3",
+  "source": "worldbook-ready_v1.2",
+  "worldbook_sha256": "97c70ece2309dc398ae6342c3911b305fed0e10dac3b5e218a138ac4cf4ed7be",
+  "entries_total": 258,
+  "timeline_entries": 46,
+  "event_nodes_total": 767,
+  "tagged_event_nodes_before": 95,
+  "tagged_event_nodes_after": 146,
+  "new_or_propagated_event_tag_changes": 53,
+  "change_breakdown": {
+    "existing_id_propagation_and_dedupe": 18,
+    "new_karma_or_privilege_ledgers": 26,
+    "new_correction_ledgers": 9
+  },
+  "baseline_summary": {
+    "timelines_changed": 43,
+    "min": 0,
+    "max": 99,
+    "rule": "opening baseline counts only fixed ledger events strictly before the selected opening; duplicate IDs settle once"
+  },
+  "selected_baseline_changes": [
+    {"timeline":"时间线-第二卷-下(多选一)","old":11,"new":16},
+    {"timeline":"时间线-第三卷(多选一)","old":17,"new":22},
+    {"timeline":"时间线-第四卷-上(多选一)","old":19,"new":29},
+    {"timeline":"时间线-第八卷(多选一)","old":26,"new":42},
+    {"timeline":"时间线-第十二卷-下(多选一)","old":43,"new":62},
+    {"timeline":"时间线-第十八卷(多选一)","old":58,"new":77},
+    {"timeline":"时间线-第二十六卷(多选一)","old":65,"new":94},
+    {"timeline":"时间线-蛇足篇-第一卷(多选一)","old":66,"new":95},
+    {"timeline":"时间线-蛇足篇-第二卷-下(多选一)","old":67,"new":99},
+    {"timeline":"时间线-第二季-上(多选一)","old":25,"new":41},
+    {"timeline":"时间线-第二季-下(多选一)","old":37,"new":55}
+  ],
+  "emperor_keywords": ["人类帝皇", "帝皇娘", "帝皇"],
+  "ordering": {
+    "original_ids": "0-235 preserve relative order and original ordering metadata",
+    "added_ids": "236-257 moved after originals",
+    "added_insertion_order": "237-258",
+    "added_display_index": "-1..-22"
+  },
+  "qa": {
+    "original_non_timeline_business_rewrites": 0,
+    "timeline_prose_reversible_to_v1_2": true,
+    "runtime_baseline_count_per_timeline": 1,
+    "all_ids_unique": true,
+    "all_baselines_in_0_100": true
+  },
+  "notes": [
+    "Not every event is tagged by design.",
+    "Thoughts/fantasies alone, consensual interactions, accidental contact, ordinary suffering and neutral travel/battle/daily events remain untagged.",
+    "Novel/anime duplicate occurrences reuse the same stable ledger ID so KSET/CSET prevents double settlement."
+  ]
+}
